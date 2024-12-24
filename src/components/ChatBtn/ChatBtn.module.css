@@ -1,0 +1,32 @@
+.btn {
+    position: absolute;
+    bottom: 54px;
+    right: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--blue);
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+    outline: none;
+}
+
+.btn:hover,
+.btn:focus {
+    background-color: var(--blue-btn-hover);
+    transform: scale(1.1);
+}
+
+.btn:focus {
+    outline: 1px solid var(--light-gray);
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    color: var(--light-gray)
+}
