@@ -24,28 +24,155 @@
     margin-bottom: 14px;
 }
 
-.upperWrapper {}
+.upperWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 31px;
+}
 
-.typingWrapper {}
+.typingWrapper {
+    display: flex;
+    gap: 12px;
+}
 
-.typing {}
+.pencilIcon {
+    width: 16px;
+    height: 16px;
+    color: var(--txt-gray-light);
+}
 
-.name {}
+.typing {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--txt-gray-light);
+}
 
-.avatarWrapper {}
+.name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+}
 
-.clientAvaTop {}
+.avatarWrapper {
+    display: flex;
+    align-items: center;
+    width: 127px;
+    height: 48px;
+}
 
-.chatWindow {}
+.avaBox {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    /* overflow: hidden; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
 
-.bottomWrapper {}
+.clientAvaTop {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+}
 
-.input {}
+.activeAva {
+    border: 1px solid var(--blue-btn-normal);
+}
 
-.clipIcon {}
+.hasNewMessage {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--play-btn-triangle);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
-.smileIcon {}
+.arrow {
+    width: 12px;
+    margin-left: auto;
+    cursor: pointer;
+}
 
-.micIcon {}
+.chatWindow {
+    height: 165px;
+    border: 1px solid var(--light-gray);
+    margin-bottom: 43px;
+}
 
-.sendBtn {}
+.bottomWrapper {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 324px;
+}
+
+.input {
+    width: 324px;
+    height: 72px;
+    padding: 25px 97px 25px 72px;
+    background-color: transparent;
+    border-radius: 24px;
+    border: 2px solid var(--main-gray);
+    background: var(--bg-light);
+    color: var(--white);
+}
+
+.input:focus {
+    outline: 2px solid var(--light-gray);
+}
+
+.clipIcon {
+    position: absolute;
+    top: 24px;
+    left: 22px;
+    width: 22px;
+    height: 22px;
+    color: var(--main-gray);
+}
+
+.smileIcon {
+    position: absolute;
+    top: 22px;
+    right: 71px;
+    width: 26px;
+    height: 26px;
+    color: var(--main-gray);
+}
+
+.micIcon {position: absolute;
+    top: 24px;
+    right: 30px;
+    width: 20px;
+    height: 26px;
+    color: var(--main-gray);
+}
+
+.sendBtn {
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sendIcon{
+    width: 36px;
+    height: 36px;
+    color: var(--white);
+}
+
+.sendBtn:hover .sendIcon{
+    transform: scale(1.05);
+}
