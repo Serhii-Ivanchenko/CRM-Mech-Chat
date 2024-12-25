@@ -19,14 +19,11 @@
 .secondAcordion {
     display: flex;
     align-items: center;
-    gap: 19px;
+    gap: 0px;
     flex-shrink: 0;
     position: relative;
 }
 
-.secondAcordionAccounting {
-    gap: 0;
-}
 
 .callRecordWrapper {
     display: flex;

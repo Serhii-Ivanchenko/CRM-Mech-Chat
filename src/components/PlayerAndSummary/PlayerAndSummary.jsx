@@ -5,20 +5,12 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 // import userPhoto from "../../assets/img/avatar_default.png";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
+import Summary from "../Summary/Summary.jsx";
 
 // import TranscriptionComponent from "../TranscriptionComponent/TranscriptionComponent";
 // import TranscribedDialog from "../TranscriptionComponent/TranscribedDialog/TranscribedDialog";
 
-export default function PlayerAndSummary(
-  messages,
-  summary,
-  sizePlayer,
-  sizeBtn,
-  audio,
-  userAvatar,
-  showPhoto,
-  accounting
-) {
+export default function PlayerAndSummary({ summary, audio }) {
   return (
     // <div className={css.secondAcordionList}>
     //   <div className={css.secondAcordionWrapper}>
@@ -30,11 +22,7 @@ export default function PlayerAndSummary(
         WebkitBoxShadow: "none",
       }}
     >
-      <div
-        className={`${css.secondAcordion} ${
-          accounting && css.secondAcordionAccounting
-        }`}
-      >
+      <div className={css.secondAcordion}>
         {/* <div className={css.callRecordWrapper}> */}
 
         {/* {showPhoto && (
@@ -53,7 +41,7 @@ export default function PlayerAndSummary(
           <MainInfoFromVoiceMessage accounting={accounting} summary={summary} />
         )} */}
 
-        <AudioPlayer audio={audio} size={sizePlayer} />
+        <AudioPlayer audio={audio} />
         {/* </div> */}
         <AccordionSummary
           className={css.accordionSummary}
@@ -61,7 +49,7 @@ export default function PlayerAndSummary(
             padding: "0",
           }}
         >
-          <MainInfoFromVoiceMessage size={sizeBtn} />
+          <MainInfoFromVoiceMessage />
         </AccordionSummary>
       </div>
       <AccordionDetails
@@ -69,6 +57,7 @@ export default function PlayerAndSummary(
           padding: "0",
         }}
       >
+        {summary && <Summary summary={summary} />}
         {/* <TranscribedDialog
           summary={summary}
         messages={messages}

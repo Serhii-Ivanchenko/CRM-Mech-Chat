@@ -6,7 +6,7 @@ export default function Message({
   message,
   // clientAva3,
   // managerAva,
-  audioFile,
+  // audioFile,
 }) {
   const clientAva = message.orClientMsg && message.avatar;
 
@@ -34,7 +34,7 @@ export default function Message({
         {/* <p className={css.time}>{time}</p> */}
       </div>
       {message.audio ? (
-        <PlayerAndSummary />
+        <PlayerAndSummary audio={message.audio} summary={message.summary} />
       ) : (
         <p
           className={clsx(
