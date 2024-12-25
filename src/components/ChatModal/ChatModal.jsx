@@ -14,19 +14,50 @@ import managerAva from "../../assets/img/manager.png";
 import { PiTelegramLogoLight, PiPaperclip } from "react-icons/pi";
 import { useState } from "react";
 import clsx from "clsx";
+import audioFile from "../../assets/audio/God Rest Ye Merry Gentlmen - DJ Williams.mp3";
+import ChatDialogue from "../ChatDialogue/ChatDialogue.jsx";
 
 const messages = [
   {
     orClientMsg: true,
-    name: "Lisa",
-    message:
-      "Доброго дня, ще раз заставлю. Скажіть, будь ласка, якщо я щось відвіду, я вам дзвоню, у мене нашовання блок АБС. Може хтось подивитися, це він чи не він?",
+    name: "Олександр",
+    message: "Підкажіть, чи зроблена вже електрика?",
+    audio: null,
+    avatar: clientAva3,
   },
   {
     orClientMsg: false,
-    name: "Менеджер",
-    message:
-      "Можемо тільки з наступної середи, тому що електрик у нас відпустив.",
+    name: "Lisa",
+    message: "Так, це вже готово",
+    avatar: managerAva,
+  },
+  {
+    orClientMsg: true,
+    name: "Олександр",
+    message: null,
+    audio: audioFile,
+    summary: "Супер, буду після обіду!",
+    avatar: clientAva3,
+  },
+  {
+    orClientMsg: false,
+    name: "Lisa",
+    message: "Так, звісно, прийїжджайте",
+    avatar: managerAva,
+  },
+  {
+    orClientMsg: true,
+    name: "Олександр",
+    message: "Добре",
+    avatar: clientAva3,
+  },
+  {
+    orClientMsg: false,
+    name: "Lisa",
+    message: null,
+    audio: audioFile,
+    summary: "Гарного дня!",
+    avatar: managerAva,
   },
 ];
 
@@ -34,10 +65,12 @@ export default function ChatModal({ onClose }) {
   const [isActive, setIsActive] = useState(null);
   const [hasNewMessage, setHasNewMessage] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isTyping, setIsTyping] = useState(null);
 
   const handleAvaClick = (id) => {
     setIsActive(id);
     setHasNewMessage(id);
+    // setHasNewMessage((prev) => (prev === id ? null : prev));
   };
 
   const handleArrowClick = () => {
@@ -50,10 +83,14 @@ export default function ChatModal({ onClose }) {
       <h2 className={css.title}>Chat</h2>
       <div className={css.upperWrapper}>
         <div className={css.typingWrapper}>
-          <BsFillPencilFill className={css.pencilIcon} />
-          <p className={css.typing}>
-            <span className={css.name}>{messages[0].name}</span> друкує...
-          </p>
+          {/* {isTyping && ( // Показувати тільки якщо typingUser не null */}
+          <>
+            <BsFillPencilFill className={css.pencilIcon} />
+            <p className={css.typing}>
+              <span className={css.name}>{isTyping}</span> друкує...
+            </p>
+          </>
+          {/* )} */}
         </div>
         <div className={css.avatarWrapper}>
           <div
@@ -80,14 +117,17 @@ export default function ChatModal({ onClose }) {
           )}
         </div>
       </div>
-      <div className={css.chatWindow}></div>
+      <div className={css.chatWindow}>
+        <ChatDialogue
+          messages={messages}
+          // clientAva3={clientAva3}
+          // managerAva={managerAva}
+          audioFile={audioFile}
+        />
+      </div>
       <div className={css.bottomWrapper}>
         <div className={css.inputWrapper} htmlFor="messageInput">
-          <input
-            className={css.input}
-            type="text"
-            placeholder="Message..."
-          />
+          <input className={css.input} type="text" placeholder="Message..." />
           <PiPaperclip className={css.clipIcon} />
           <BsEmojiSmile className={css.smileIcon} />
           <BsMic className={css.micIcon} />
