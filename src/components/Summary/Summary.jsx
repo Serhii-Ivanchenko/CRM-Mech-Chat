@@ -1,9 +1,11 @@
 import css from "./Summary.module.css";
 
-export default function Summary({summary}) {
+export default function Summary({ summary }) {
   return (
-    <div>
-      <p>{summary}</p>
+    <div className={css.summaryWrapper}>
+      <div className={css.textWrapper}>
+        <p className={css.summaryText}>{summary}</p>
+      </div>
     </div>
   );
 }

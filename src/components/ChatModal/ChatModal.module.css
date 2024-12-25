@@ -101,11 +101,25 @@
 
 .chatWindow {
     height: 165px;
-    border: 1px solid var(--light-gray);
+    /* border: 1px solid var(--light-gray); */
     margin-bottom: 43px;
     overflow: auto;
+    overflow-x: hidden;
+}
+.chatWindow::-webkit-scrollbar {
+    width: 1px;
+    border-radius: 4px;
 }
 
+.chatWindow::-webkit-scrollbar-thumb {
+    background: var(--player-secondary-bg);
+    border-radius: 4px;
+}
+
+.chatWindow::-webkit-scrollbar-track {
+    /* background: #202020; */
+    border-radius: 4px;
+}
 .bottomWrapper {
     display: flex;
     gap: 20px;

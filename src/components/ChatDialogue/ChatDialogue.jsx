@@ -8,8 +8,8 @@ export default function ChatDialogue({
   audioFile,
 }) {
   return (
-    <div className={css.scrollBarWrapper}>
-      <div className={css.secondAcordionBody}>
+    // <div className={css.scrollBarWrapper}>
+      <div className={css.secondAccordionBody}>
         {/* {summary ? "" : <MainInfoFromVoiceMessage summary={summary} />} */}
 
         <ul className={css.messages}>
@@ -26,6 +26,6 @@ export default function ChatDialogue({
           ))}
         </ul>
       </div>
-    </div>
+    // </div>
   );
 }

@@ -19,30 +19,30 @@
 .secondAcordion {
     display: flex;
     align-items: center;
-    gap: 0px;
+    gap: 20px;
     flex-shrink: 0;
     position: relative;
 }
 
 
-.callRecordWrapper {
+/* .callRecordWrapper {
     display: flex;
     gap: 20px;
     justify-content: center;
     align-items: center;
 
-    /* position: absolute;
-  top: 0; */
-}
+    position: absolute;
+  top: 0;
+} */
 
 /* .callRecordWrapper > img {
   
 } */
 
-.userPhoto {
+/* .userPhoto {
     width: 48px;
     height: 48px;
-}
+} */
 
 .secondAcordionBody {
     display: flex;

@@ -41,11 +41,12 @@ export default function PlayerAndSummary({ summary, audio }) {
           <MainInfoFromVoiceMessage accounting={accounting} summary={summary} />
         )} */}
 
-        <AudioPlayer audio={audio} />
+        <AudioPlayer audio={audio} size="big" />
         {/* </div> */}
         <AccordionSummary
           className={css.accordionSummary}
           sx={{
+            width: "auto",
             padding: "0",
           }}
         >

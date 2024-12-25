@@ -18,21 +18,11 @@ export default function Message({
         message.orClientMsg ? css.clientMessageItem : css.managerMessageItem
       )}
     >
-      <div className={css.messageInformation}>
-        <p
-          className={clsx(
-            css.author,
-            message.orClientMsg ? css.client : css.manager
-          )}
-        >
-          {message.orClientMsg ? (
-            <img src={clientAva} />
-          ) : (
-            <img src={managerAva} />
-          )}
-        </p>
-        {/* <p className={css.time}>{time}</p> */}
-      </div>
+      {message.orClientMsg ? (
+        <img src={clientAva} className={css.avatar} />
+      ) : (
+        <img src={managerAva} className={css.avatar} />
+      )}
       {message.audio ? (
         <PlayerAndSummary audio={message.audio} summary={message.summary} />
       ) : (

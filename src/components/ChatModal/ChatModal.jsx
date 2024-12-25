@@ -12,7 +12,7 @@ import clientAva2 from "../../assets/img/client_2.png";
 import clientAva3 from "../../assets/img/client_3.png";
 import managerAva from "../../assets/img/manager.png";
 import { PiTelegramLogoLight, PiPaperclip } from "react-icons/pi";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 import audioFile from "../../assets/audio/God Rest Ye Merry Gentlmen - DJ Williams.mp3";
 import ChatDialogue from "../ChatDialogue/ChatDialogue.jsx";
@@ -67,6 +67,10 @@ export default function ChatModal({ onClose }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(null);
 
+  const inputRef = useRef(null);
+
+  const handleInputFocus = () => {setIsTyping("Lisa")};
+
   const handleAvaClick = (id) => {
     setIsActive(id);
     setHasNewMessage(id);
@@ -83,14 +87,14 @@ export default function ChatModal({ onClose }) {
       <h2 className={css.title}>Chat</h2>
       <div className={css.upperWrapper}>
         <div className={css.typingWrapper}>
-          {/* {isTyping && ( // Показувати тільки якщо typingUser не null */}
+          {isTyping && ( // Показувати тільки якщо typingUser не null
           <>
             <BsFillPencilFill className={css.pencilIcon} />
             <p className={css.typing}>
               <span className={css.name}>{isTyping}</span> друкує...
             </p>
           </>
-          {/* )} */}
+          )} 
         </div>
         <div className={css.avatarWrapper}>
           <div
@@ -127,7 +131,14 @@ export default function ChatModal({ onClose }) {
       </div>
       <div className={css.bottomWrapper}>
         <div className={css.inputWrapper} htmlFor="messageInput">
-          <input className={css.input} type="text" placeholder="Message..." />
+          <input
+            ref={inputRef}
+            className={css.input}
+            type="text"
+            placeholder="Message..."
+            onFocus={handleInputFocus}
+            onBlur={() => setIsTyping(null)}
+          />
           <PiPaperclip className={css.clipIcon} />
           <BsEmojiSmile className={css.smileIcon} />
           <BsMic className={css.micIcon} />
