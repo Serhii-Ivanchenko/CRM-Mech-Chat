@@ -106,6 +106,7 @@
     overflow: auto;
     overflow-x: hidden;
 }
+
 .chatWindow::-webkit-scrollbar {
     width: 1px;
     border-radius: 4px;
@@ -120,6 +121,7 @@
     /* background: #202020; */
     border-radius: 4px;
 }
+
 .bottomWrapper {
     display: flex;
     gap: 20px;
@@ -134,7 +136,7 @@
 .input {
     width: 324px;
     height: 72px;
-    padding: 25px 97px 25px 72px;
+    padding: 25px 99px 25px 50px;
     background-color: transparent;
     border-radius: 24px;
     border: 2px solid var(--main-gray);
@@ -153,6 +155,7 @@
     width: 22px;
     height: 22px;
     color: var(--main-gray);
+    cursor: pointer;
 }
 
 .smileIcon {
@@ -162,14 +165,39 @@
     width: 26px;
     height: 26px;
     color: var(--main-gray);
+    cursor: pointer;
 }
 
-.micIcon {position: absolute;
+.micIcon {
+    position: absolute;
     top: 24px;
     right: 30px;
     width: 20px;
     height: 26px;
     color: var(--main-gray);
+    cursor: pointer;
+}
+
+.clipIcon:hover,
+.smileIcon:hover,
+.micIcon:hover {
+    color: var(--light-gray);
+}
+
+.emojiPicker {
+    position: absolute !important;
+    top: -285px !important;
+    left: 170px !important;
+    z-index: 10 !important;
+    border-radius: 12px !important;
+    width: 300px !important;
+    height: 300px !important;
+    /* background-color: var(--bg-light) !important; */
+}
+
+.emojiPicker > div::-webkit-scrollbar {
+    width: 1px !important;
+    border-radius: 4px !important;
 }
 
 .sendBtn {
@@ -182,12 +210,12 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.sendIcon{
+.sendIcon {
     width: 36px;
     height: 36px;
     color: var(--white);
 }
 
-.sendBtn:hover .sendIcon{
+.sendBtn:hover .sendIcon {
     transform: scale(1.05);
 }

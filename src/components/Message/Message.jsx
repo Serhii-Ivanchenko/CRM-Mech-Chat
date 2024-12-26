@@ -2,12 +2,7 @@ import clsx from "clsx";
 import css from "./Message.module.css";
 import PlayerAndSummary from "../PlayerAndSummary/PlayerAndSummary.jsx";
 
-export default function Message({
-  message,
-  // clientAva3,
-  // managerAva,
-  // audioFile,
-}) {
+export default function Message({ message }) {
   const clientAva = message.orClientMsg && message.avatar;
 
   const managerAva = message.orClientMsg === false && message.avatar;

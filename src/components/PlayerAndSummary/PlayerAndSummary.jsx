@@ -3,17 +3,11 @@ import MainInfoFromVoiceMessage from "../MainInfoFromVoiceMessage/MainInfoFromVo
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-// import userPhoto from "../../assets/img/avatar_default.png";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
 import Summary from "../Summary/Summary.jsx";
 
-// import TranscriptionComponent from "../TranscriptionComponent/TranscriptionComponent";
-// import TranscribedDialog from "../TranscriptionComponent/TranscribedDialog/TranscribedDialog";
-
 export default function PlayerAndSummary({ summary, audio }) {
   return (
-    // <div className={css.secondAcordionList}>
-    //   <div className={css.secondAcordionWrapper}>
     <Accordion
       disableGutters={true}
       sx={{
@@ -23,26 +17,7 @@ export default function PlayerAndSummary({ summary, audio }) {
       }}
     >
       <div className={css.secondAcordion}>
-        {/* <div className={css.callRecordWrapper}> */}
-
-        {/* {showPhoto && (
-          <img
-            className={css.userPhoto}
-            src={userAvatar || userPhoto}
-            alt="user avatar"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = userPhoto;
-            }}
-          />
-        )} */}
-
-        {/* {accounting && (
-          <MainInfoFromVoiceMessage accounting={accounting} summary={summary} />
-        )} */}
-
         <AudioPlayer audio={audio} size="big" />
-        {/* </div> */}
         <AccordionSummary
           className={css.accordionSummary}
           sx={{
@@ -59,14 +34,7 @@ export default function PlayerAndSummary({ summary, audio }) {
         }}
       >
         {summary && <Summary summary={summary} />}
-        {/* <TranscribedDialog
-          summary={summary}
-        messages={messages}
-        accounting={accounting}
-        /> */}
       </AccordionDetails>
     </Accordion>
-    //   </div>
-    // </div>
   );
 }
