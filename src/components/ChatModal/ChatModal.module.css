@@ -170,12 +170,31 @@
 
 .micIcon {
     position: absolute;
-    top: 24px;
+    top: 22px;
     right: 30px;
-    width: 20px;
+    width: 26px;
     height: 26px;
     color: var(--main-gray);
     cursor: pointer;
+}
+
+.micIcon.recording {
+    color: red;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .clipIcon:hover,
@@ -195,7 +214,7 @@
     /* background-color: var(--bg-light) !important; */
 }
 
-.emojiPicker > div::-webkit-scrollbar {
+.emojiPicker>div::-webkit-scrollbar {
     width: 1px !important;
     border-radius: 4px !important;
 }
@@ -218,4 +237,12 @@
 
 .sendBtn:hover .sendIcon {
     transform: scale(1.05);
+}
+
+.playerWrapper {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    display: flex;
+    align-items: center;
 }

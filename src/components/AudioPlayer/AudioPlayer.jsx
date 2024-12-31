@@ -62,16 +62,28 @@ export default function AudioPlayer({ audio, size }) {
     // <div className={css.callRecordWrapper}>
     //   {showUserPhoto && <img src={userAvater} alt="user avater" />}
 
-    <div className={css.callTranscription}>
+    <div
+      className={`${css.callTranscription} 
+      ${size === "big" && css.callTranscriptionClientAndLC} 
+      ${size === "small" && css.callTranscriptionAccounting}`}
+    >
       <Slider
-        className={css.customSlider}
+        className={`${css.customSlider}  ${
+          size === "small" && css.customSliderAccounting
+        }`}
         value={progress}
         max={duration}
         onChange={handleSliderChange}
       />
-      <div className={css.wrapperOfUiElement}>
+      <div
+        className={`${css.wrapperOfUiElement} 
+        ${size === "big" && css.wrapperOfUiElementClientAndLC} 
+      ${size === "small" && css.wrapperOfUiElementAccounting}`}
+      >
         <button
-          className={css.transcriptionBtn}
+          className={`${css.transcriptionBtn}  
+          ${size === "big" && css.transcriptionBtClientAndLC} 
+      ${size === "small" && css.transcriptionBtAccounting}`}
           onClick={togglePlay}
         >
           {isPlaying ? (
@@ -87,7 +99,7 @@ export default function AudioPlayer({ audio, size }) {
           )}
         </button>
         <GiSoundWaves
-          size={80}
+          size={`${size === "big" ? 80 : 40}`}
           className={css.wave}
         />
         <Typography

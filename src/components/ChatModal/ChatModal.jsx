@@ -5,6 +5,7 @@ import {
   BsEmojiSmile,
   BsMic,
   BsChevronUp,
+  BsStopCircle,
 } from "react-icons/bs";
 import css from "./ChatModal.module.css";
 import clientAva1 from "../../assets/img/client_1.png";
@@ -18,6 +19,7 @@ import audioFile from "../../assets/audio/God Rest Ye Merry Gentlmen - DJ Willia
 import ChatDialogue from "../ChatDialogue/ChatDialogue.jsx";
 import EmojiPicker from "emoji-picker-react";
 import { Box, ClickAwayListener } from "@mui/material";
+import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
 
 const initialMessages = [
   {
@@ -71,6 +73,9 @@ export default function ChatModal({ onClose }) {
   const [isTyping, setIsTyping] = useState(null);
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioBlob, setAudioBlob] = useState(null);
+  const mediaRecorderRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   const chatWindowRef = useRef(null);
@@ -121,17 +126,28 @@ export default function ChatModal({ onClose }) {
     );
   };
 
-  const newMessage = {
-    orClientMsg: false,
-    name: "Lisa",
-    message: message,
-    audio: null,
-    avatar: managerAva,
-  };
-
   const handleMessageSend = () => {
-    setMessages([...messages, newMessage]);
-    setMessage("");
+    if (audioBlob) {
+      const newAudioMessage = {
+        orClientMsg: false,
+        name: "Lisa",
+        message: null,
+        audio: URL.createObjectURL(audioBlob),
+        avatar: managerAva,
+      };
+      setMessages([...messages, newAudioMessage]);
+      setAudioBlob(null);
+    } else if (message.trim() !== "") {
+        const newMessage = {
+          orClientMsg: false,
+          name: "Lisa",
+          message: message,
+          audio: null,
+          avatar: managerAva,
+        };
+      setMessages([...messages, newMessage]);
+      setMessage("");
+    }
   };
 
   const handleKeyPress = (event) => {
@@ -153,6 +169,47 @@ export default function ChatModal({ onClose }) {
       });
     }
   }, [messages]);
+
+  // Audio message
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+
+      const audioChunks = [];
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
+        setAudioBlob(audioBlob);
+      };
+
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  const handleMicClick = () => {
+    if (isRecording) {
+      handleStopRecording();
+    } else {
+      handleStartRecording();
+    }
+  };
 
   return (
     <div className={css.modalWrapper}>
@@ -242,7 +299,25 @@ export default function ChatModal({ onClose }) {
               </Box>
             </ClickAwayListener>
           )}
-          <BsMic className={css.micIcon} />
+          {!isRecording ? (
+            <BsMic className={css.micIcon} onClick={handleMicClick} />
+          ) : (
+            <BsStopCircle
+              className={`${css.micIcon} ${css.recording}`}
+              onClick={handleMicClick}
+            />
+          )}
+          {audioBlob && (
+            <div className={css.playerWrapper}>
+              <AudioPlayer
+                audio={URL.createObjectURL(audioBlob)}
+                size="small"
+              />
+              <BsXLg
+                onClick={() => setAudioBlob(null)}
+              />
+            </div>
+          )}
         </div>
         <button className={css.sendBtn} onClick={handleMessageSend}>
           <PiTelegramLogoLight className={css.sendIcon} />
