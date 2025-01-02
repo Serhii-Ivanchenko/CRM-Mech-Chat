@@ -1,0 +1,15 @@
+.summaryWrapper {
+    width: 100%;
+    max-height: 70px;
+    background-color: var(--contacts-info-bg);
+    border-radius: 12px 0 12px 12px;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+.textWrapper {
+    max-height: 50px;
+    overflow: auto;
+}
+
+.summaryText {}

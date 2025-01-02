@@ -1,0 +1,35 @@
+.secondAcordion {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.secondAcordionBody {
+    display: flex;
+    flex-direction: column;
+    padding-right: 16px;
+    align-items: flex-end;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.secondAcordionBody::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 4px;
+}
+
+.secondAcordionBody::-webkit-scrollbar-thumb {
+    background: var(--player-secondary-bg);
+    border-radius: 4px;
+}
+
+.secondAcordionBody::-webkit-scrollbar-track {
+    background: #202020;
+    border-radius: 4px;
+}
+
+.accordionSummary>div {
+    margin: 0;
+}

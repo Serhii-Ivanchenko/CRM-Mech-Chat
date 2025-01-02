@@ -28,7 +28,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 31px;
+    margin-bottom: 14px;
 }
 
 .typingWrapper {
@@ -100,9 +100,26 @@
 }
 
 .chatWindow {
-    height: 165px;
-    border: 1px solid var(--light-gray);
-    margin-bottom: 43px;
+    height: 211px;
+    /* border: 1px solid var(--light-gray); */
+    margin-bottom: 14px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.chatWindow::-webkit-scrollbar {
+    width: 1px;
+    border-radius: 4px;
+}
+
+.chatWindow::-webkit-scrollbar-thumb {
+    background: var(--player-secondary-bg);
+    border-radius: 4px;
+}
+
+.chatWindow::-webkit-scrollbar-track {
+    /* background: #202020; */
+    border-radius: 4px;
 }
 
 .bottomWrapper {
@@ -119,7 +136,7 @@
 .input {
     width: 324px;
     height: 72px;
-    padding: 25px 97px 25px 72px;
+    padding: 25px 99px 25px 50px;
     background-color: transparent;
     border-radius: 24px;
     border: 2px solid var(--main-gray);
@@ -138,6 +155,7 @@
     width: 22px;
     height: 22px;
     color: var(--main-gray);
+    cursor: pointer;
 }
 
 .smileIcon {
@@ -147,14 +165,58 @@
     width: 26px;
     height: 26px;
     color: var(--main-gray);
+    cursor: pointer;
 }
 
-.micIcon {position: absolute;
-    top: 24px;
+.micIcon {
+    position: absolute;
+    top: 22px;
     right: 30px;
-    width: 20px;
+    width: 26px;
     height: 26px;
     color: var(--main-gray);
+    cursor: pointer;
+}
+
+.micIcon.recording {
+    color: red;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.clipIcon:hover,
+.smileIcon:hover,
+.micIcon:hover {
+    color: var(--light-gray);
+}
+
+.emojiPicker {
+    position: absolute !important;
+    top: -285px !important;
+    left: 170px !important;
+    z-index: 10 !important;
+    border-radius: 12px !important;
+    width: 300px !important;
+    height: 300px !important;
+    /* background-color: var(--bg-light) !important; */
+}
+
+.emojiPicker>div::-webkit-scrollbar {
+    width: 1px !important;
+    border-radius: 4px !important;
 }
 
 .sendBtn {
@@ -167,12 +229,20 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.sendIcon{
+.sendIcon {
     width: 36px;
     height: 36px;
     color: var(--white);
 }
 
-.sendBtn:hover .sendIcon{
+.sendBtn:hover .sendIcon {
     transform: scale(1.05);
+}
+
+.playerWrapper {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    display: flex;
+    align-items: center;
 }
