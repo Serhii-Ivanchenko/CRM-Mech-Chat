@@ -6,7 +6,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
 import Summary from "../Summary/Summary.jsx";
 
-export default function PlayerAndSummary({ summary, audio }) {
+export default function PlayerAndSummary({ summary, audio, audioDuration }) {
   return (
     <Accordion
       disableGutters={true}
@@ -17,7 +17,7 @@ export default function PlayerAndSummary({ summary, audio }) {
       }}
     >
       <div className={css.secondAcordion}>
-        <AudioPlayer audio={audio} size="big" />
+        <AudioPlayer audio={audio} size="big" audioDuration={audioDuration} />
         <AccordionSummary
           className={css.accordionSummary}
           sx={{

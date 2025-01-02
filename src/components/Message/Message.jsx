@@ -4,6 +4,7 @@ import PlayerAndSummary from "../PlayerAndSummary/PlayerAndSummary.jsx";
 
 export default function Message({ message }) {
   const clientAva = message.orClientMsg && message.avatar;
+  const audioDuration = message.duration || 0;
 
   const managerAva = message.orClientMsg === false && message.avatar;
   return (
@@ -19,7 +20,11 @@ export default function Message({ message }) {
         <img src={managerAva} className={css.avatar} />
       )}
       {message.audio ? (
-        <PlayerAndSummary audio={message.audio} summary={message.summary} />
+        <PlayerAndSummary
+          audio={message.audio}
+          summary={message.summary}
+          audioDuration={audioDuration}
+        />
       ) : (
         <p
           className={clsx(

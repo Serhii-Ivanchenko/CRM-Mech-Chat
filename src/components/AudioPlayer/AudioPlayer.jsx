@@ -5,10 +5,10 @@ import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { useState } from "react";
 import { useRef } from "react";
 
-export default function AudioPlayer({ audio, size }) {
+export default function AudioPlayer({ audio, size, audioDuration }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(audioDuration);
   const audioRef = useRef(null);
 
   const togglePlay = () => {
@@ -16,6 +16,7 @@ export default function AudioPlayer({ audio, size }) {
       audioRef.current.pause();
     } else {
       audioRef.current.play();
+      console.log("duration", duration);
     }
     setIsPlaying(!isPlaying);
   };

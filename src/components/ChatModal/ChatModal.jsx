@@ -75,6 +75,7 @@ export default function ChatModal({ onClose }) {
   const [message, setMessage] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
+  const [audioDuration, setAudioDuration] = useState(0);
   const mediaRecorderRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -128,23 +129,33 @@ export default function ChatModal({ onClose }) {
 
   const handleMessageSend = () => {
     if (audioBlob) {
-      const newAudioMessage = {
-        orClientMsg: false,
-        name: "Lisa",
-        message: null,
-        audio: URL.createObjectURL(audioBlob),
-        avatar: managerAva,
-      };
-      setMessages([...messages, newAudioMessage]);
-      setAudioBlob(null);
-    } else if (message.trim() !== "") {
-        const newMessage = {
+      const audioURL = URL.createObjectURL(audioBlob);
+
+      const audio = new Audio(audioURL);
+      audio.onloadedmetadata = () => {
+        const duration = Math.round(audio.duration);
+        setAudioDuration(duration);
+
+        const newAudioMessage = {
           orClientMsg: false,
           name: "Lisa",
-          message: message,
-          audio: null,
+          message: null,
+          // audio: URL.createObjectURL(audioBlob),
+          audio: audioURL,
+          duration: audioDuration,
           avatar: managerAva,
         };
+        setMessages([...messages, newAudioMessage]);
+        setAudioBlob(null);
+      };
+    } else if (message.trim() !== "") {
+      const newMessage = {
+        orClientMsg: false,
+        name: "Lisa",
+        message: message,
+        audio: null,
+        avatar: managerAva,
+      };
       setMessages([...messages, newMessage]);
       setMessage("");
     }
@@ -252,7 +263,10 @@ export default function ChatModal({ onClose }) {
         </div>
       </div>
       <div ref={chatWindowRef} className={css.chatWindow}>
-        <ChatDialogue messages={messages} audioFile={audioFile} />
+        <ChatDialogue
+          messages={messages}
+          // audioFile={audioFile}
+        />
       </div>
       <div className={css.bottomWrapper}>
         <div className={css.inputWrapper} htmlFor="messageInput">
@@ -312,10 +326,9 @@ export default function ChatModal({ onClose }) {
               <AudioPlayer
                 audio={URL.createObjectURL(audioBlob)}
                 size="small"
+                duration={audioDuration}
               />
-              <BsXLg
-                onClick={() => setAudioBlob(null)}
-              />
+              <BsXLg onClick={() => setAudioBlob(null)} />
             </div>
           )}
         </div>
