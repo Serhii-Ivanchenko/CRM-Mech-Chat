@@ -142,7 +142,7 @@ export default function ChatModal({ onClose }) {
           message: null,
           // audio: URL.createObjectURL(audioBlob),
           audio: audioURL,
-          duration: audioDuration,
+          duration: duration,
           avatar: managerAva,
         };
         setMessages([...messages, newAudioMessage]);
