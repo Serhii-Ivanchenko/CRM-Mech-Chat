@@ -20,6 +20,7 @@ import ChatDialogue from "../ChatDialogue/ChatDialogue.jsx";
 import EmojiPicker from "emoji-picker-react";
 import { Box, ClickAwayListener } from "@mui/material";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
+import { IoDocumentAttachOutline } from "react-icons/io5";
 
 const initialMessages = [
   {
@@ -28,12 +29,14 @@ const initialMessages = [
     message: "Підкажіть, чи зроблена вже електрика?",
     audio: null,
     avatar: clientAva3,
+    files: [],
   },
   {
     orClientMsg: false,
     name: "Lisa",
     message: "Так, це вже готово",
     avatar: managerAva,
+    files: [],
   },
   {
     orClientMsg: true,
@@ -42,18 +45,21 @@ const initialMessages = [
     audio: audioFile,
     summary: "Супер, буду після обіду!",
     avatar: clientAva3,
+    files: [],
   },
   {
     orClientMsg: false,
     name: "Lisa",
     message: "Так, звісно, прийїжджайте",
     avatar: managerAva,
+    files: [],
   },
   {
     orClientMsg: true,
     name: "Олександр",
     message: "Добре",
     avatar: clientAva3,
+    files: [],
   },
   {
     orClientMsg: false,
@@ -62,6 +68,7 @@ const initialMessages = [
     audio: audioFile,
     summary: "Гарного дня!",
     avatar: managerAva,
+    files: [],
   },
 ];
 
@@ -76,6 +83,8 @@ export default function ChatModal({ onClose }) {
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
   const [audioDuration, setAudioDuration] = useState(0);
+  const [previewFiles, setPreviewFiles] = useState([]);
+
   const mediaRecorderRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -102,14 +111,44 @@ export default function ChatModal({ onClose }) {
     }
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      console.log("Завантажений файл:", file);
-      // логіка для роботи з файлом
-    }
+  // Завантаження файлів
+  const mimeToExtensionMap = {
+    "application/pdf": "pdf",
+    "application/msword": "doc",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      "docx",
+    "application/vnd.ms-excel": "xls",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+    "application/x-rar-compressed": "rar",
+    "application/zip": "zip",
+    "application/x-zip-compressed": "zip",
+    "application/x-7z-compressed": "7z",
   };
 
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    const maxFiles = 5;
+
+    if (files.length + previewFiles.length > maxFiles) {
+      alert(`Можна завантажити не більше ${maxFiles} файлів`);
+      return;
+    }
+
+    const newFiles = files.map((file) => ({
+      name: file.name,
+      type: file.type,
+      url: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+      file,
+    }));
+
+    setPreviewFiles((prev) => [...prev, ...newFiles]);
+  };
+
+   const removeImagePreview = (index) => {
+     setPreviewFiles((prev) => prev.filter((_, i) => i !== index));
+   };
+
+  // Емоджі
   const handleEmojiClick = (emojiData) => {
     if (!inputRef.current) return;
     const input = inputRef.current;
@@ -127,6 +166,7 @@ export default function ChatModal({ onClose }) {
     );
   };
 
+  // Відправка повідомлення
   const handleMessageSend = () => {
     if (audioBlob) {
       const audioURL = URL.createObjectURL(audioBlob);
@@ -148,16 +188,25 @@ export default function ChatModal({ onClose }) {
         setMessages([...messages, newAudioMessage]);
         setAudioBlob(null);
       };
-    } else if (message.trim() !== "") {
+    } else if (message.trim() !== "" || previewFiles.length) {
       const newMessage = {
         orClientMsg: false,
         name: "Lisa",
         message: message,
         audio: null,
         avatar: managerAva,
+        files: previewFiles.length
+          ? previewFiles.map(({ name, type, file, url }) => ({
+              name,
+              type,
+              file,
+              url,
+            }))
+          : undefined,
       };
       setMessages([...messages, newMessage]);
       setMessage("");
+      setPreviewFiles([]);
     }
   };
 
@@ -167,6 +216,7 @@ export default function ChatModal({ onClose }) {
     }
   };
 
+  // Промотка до останнього повідомлення
   useEffect(() => {
     // if (
     //   messages.length > 0 &&
@@ -284,10 +334,58 @@ export default function ChatModal({ onClose }) {
 
           <>
             <PiPaperclip className={css.clipIcon} onClick={handleClipClick} />
+            {previewFiles.length > 0 && (
+              <div className={css.previewContainer}>
+                {previewFiles.map((file, index) => (
+                  <div key={index} className={css.previewItem}>
+                    {file.url ? (
+                      file.type.startsWith("image/") && (
+                        <>
+                          <img
+                            src={file.url}
+                            alt={`Preview ${index}`}
+                            className={css.previewImage}
+                          />
+                          <button
+                            className={css.removePreviewDoc}
+                            onClick={() => removeImagePreview(index)}
+                          >
+                            ✕
+                          </button>
+                        </>
+                      )
+                    ) : (
+                      <>
+                        <div className={css.previewDoc}>
+                          <IoDocumentAttachOutline
+                            style={{ transform: "scale(1.4)" }}
+                          />
+                          <p className={css.fileName}>
+                            {file.name.length > 5
+                              ? `${file.name.slice(0, 5)}...`
+                              : file.name}{" "}
+                            {mimeToExtensionMap[file.type] ||
+                              file.type.split("/")[1]}
+                          </p>
+                        </div>
+                        <button
+                          className={css.removePreviewDoc}
+                          onClick={() => removeImagePreview(index)}
+                        >
+                          ✕
+                        </button>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
             <input
               type="file"
               ref={fileInputRef}
               style={{ display: "none" }}
+              accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/x-rar-compressed,application/zip,application/x-zip-compressed,application/x-7z-compressed"
+              multiple
               onChange={handleFileChange}
             />
           </>

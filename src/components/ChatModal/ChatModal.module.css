@@ -158,6 +158,69 @@
     cursor: pointer;
 }
 
+.previewContainer {
+    width: 100%;
+    position: absolute;
+    top: -76px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    z-index: 9999;
+    padding: 8px;
+    border-radius: 12px;
+    background-color: rgba(216, 216, 216, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.previewItem {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.removePreviewDoc {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--main-gray);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.previewDoc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: #23252c;
+    border-radius: 4px;
+}
+
+.fileName {
+    font-size: 9px;
+    color: #555;
+    margin-top: 8px;
+}
+
 .smileIcon {
     position: absolute;
     top: 22px;
